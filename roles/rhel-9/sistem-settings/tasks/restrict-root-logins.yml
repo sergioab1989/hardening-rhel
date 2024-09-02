@@ -1,0 +1,113 @@
+---
+- name: Ensure the Group Used by pam_wheel.so Module Exists on System and is Empty
+  block:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+      tags:
+      - CCE-86072-6
+      - PCI-DSSv4-2.2.6
+      - ensure_pam_wheel_group_empty
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+    - name: XCCDF Value var_pam_wheel_group_for_su # promote to variable
+      set_fact:
+        var_pam_wheel_group_for_su: !!str sugroup
+      tags:
+        - always
+
+    - name: Ensure the Group Used by pam_wheel.so Module Exists on System and is Empty
+        - Ensure {{ var_pam_wheel_group_for_su }} Group Exists
+      ansible.builtin.group:
+        name: '{{ var_pam_wheel_group_for_su }}'
+        state: present
+      when: '"pam" in ansible_facts.packages'
+      tags:
+      - CCE-86072-6
+      - PCI-DSSv4-2.2.6
+      - ensure_pam_wheel_group_empty
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Ensure the Group Used by pam_wheel.so Module Exists on System and is Empty
+        - Ensure {{ var_pam_wheel_group_for_su }} Group is Empty
+      ansible.builtin.lineinfile:
+        path: /etc/group
+        regexp: ^({{ var_pam_wheel_group_for_su }}:[^:]+:[0-9]+:).*$
+        line: \1
+        backrefs: true
+      when: '"pam" in ansible_facts.packages'
+      tags:
+      - CCE-86072-6
+      - PCI-DSSv4-2.2.6
+      - ensure_pam_wheel_group_empty
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+- name: Direct root Logins Not Allowed
+  block:
+    - name: Direct root Logins Not Allowed
+      copy:
+        dest: /etc/securetty
+        content: ''
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-83625-4
+      - NIST-800-171-3.1.1
+      - NIST-800-171-3.1.6
+      - NIST-800-53-CM-6(a)
+      - NIST-800-53-IA-2
+      - PCI-DSSv4-8.6.1
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_direct_root_logins
+      - no_reboot_needed
+      - restrict_strategy
+
+- name: Enforce Usage of pam_wheel with Group Parameter for su Authentication
+  block:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+      tags:
+      - CCE-86065-0
+      - PCI-DSSv4-2.2.6
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+      - use_pam_wheel_group_for_su
+    - name: XCCDF Value var_pam_wheel_group_for_su # promote to variable
+      set_fact:
+        var_pam_wheel_group_for_su: !!str sugroup
+      tags:
+        - always
+
+    - name: Enforce Usage of pam_wheel with Group Parameter for su Authentication - Add
+        the group to the /etc/pam.d/su file
+      ansible.builtin.lineinfile:
+        path: /etc/pam.d/su
+        state: present
+        regexp: ^[\s]*#[\s]*auth[\s]+required[\s]+pam_wheel\.so[\s]+use_uid group=$
+        line: auth             required        pam_wheel.so use_uid group={{ var_pam_wheel_group_for_su }}
+      when: '"pam" in ansible_facts.packages'
+      tags:
+      - CCE-86065-0
+      - PCI-DSSv4-2.2.6
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+      - use_pam_wheel_group_for_su

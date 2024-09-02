@@ -1,0 +1,29 @@
+---
+- name: CPU usage
+  ansible.builtin.shell: top -bn1 | grep 'Cpu(s)' | awk '{print $2}'
+  register: cpu_usage
+
+- name: Linux Version
+  ansible.builtin.shell: cat /etc/redhat-release
+  register: version_rhel
+
+- name: RAM Usage
+  ansible.builtin.shell: top -bn1 | awk '/MiB Mem/ {printf "%.2f\n", $8/$4 * 100}'
+  register: ram_usage
+
+- name: RAM Usage
+  ansible.builtin.shell: free -h
+  register: ram_total
+
+- name: Gather Disk Space
+  ansible.builtin.shell: "df -h --output=pcent / | awk 'NR==2 {print $1}'"
+  register: disk_space
+
+- name: Usage Stats
+  ansible.builtin.debug:
+    msg:
+      - "CPU Usage: {{ cpu_usage.stdout }}"
+      - "RAM Usage: {{ ram_usage.stdout }}"
+      - "RAM Total: {{ ram_total.stdout }}"
+      - "Disk Space Used: {{ disk_space.stdout }}"
+      - "Linux Version: {{ version_rhel.stdout }}"

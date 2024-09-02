@@ -1,0 +1,5 @@
+[rhel9]
+192.168.0.7 ansible_connection=ssh ansible_ssh_user=kevin ansible_ssh_pass=RedhatLo0l123 ansible_ssh_port=22 ansible_python_interpreter=/usr/libexec/platform-python
+
+[rhel8]
+192.168.1.84 ansible_connection=ssh ansible_ssh_user=kev ansible_become_pass=lol123 ansible_ssh_pass=lol123 ansible_ssh_port=22 ansible_python_interpreter=/usr/libexec/platform-python

@@ -1,0 +1,74 @@
+---
+# execution to playbooks by order
+- name: validador SO
+  block:
+    - name: installing and maintaining software
+      include_tasks: verify-integrity-with-aide.yml
+
+    - name: installing and maintaining software
+      include_tasks: conf-sudo.yml
+
+    - name: Account and Access Control/Set Lockouts for Failed Password Attempts
+      include_tasks: limit-password-reuse-password-auth.yml
+
+    - name: Account and Access Control/Set Lockouts for Failed Password Attempts
+      include_tasks: limit-password-reuse.yml
+
+    - name: Account and Access Control/Set Lockouts for Failed Password Attempts
+      include_tasks: lock-accounts-after-failed-password-attempts.yml
+
+    - name: Account and Access Control/Set Lockouts for Failed Password Attempts
+      include_tasks: set-lockout-time-for-failed-password-attempts.yml
+
+    - name: Account and Access Control/Set Password Quality Requirements
+      include_tasks: set-pass-quality-requirements-pam_pwquality.yml
+
+    - name: Account and Access Control/Set Password Hashing Algorithm
+      include_tasks: ensure-pam-displays-last-logon-access-notifi.yml
+
+    - name: Account and Access Control/Set Account Expiration Parameters
+      include_tasks: set-account-expiration-following-inactivity.yml
+
+    - name: Account and Access Control/Set Password Expiration Parameters
+      include_tasks: set-pass-expiration-parameters.yml
+
+    - name: Account and Access Control/Verify Proper Storage and Existence of Password Hashes
+      include_tasks: prevent-login-acc-with-empty-pass.yml
+
+    - name: Account and Access Control/Restrict Root Logins
+      include_tasks: restrict-root-logins.yml
+
+    - name: Account and Access Control/Secure Session Configuration Files for Login Accounts
+      include_tasks: set-interactive-session-timeout.yml
+
+    - name: Network Configuration and Firewalls/Strengthen the Default Ruleset
+      include_tasks: strengthen-default-ruleset.yml
+
+    - name: Network Configuration and Firewalls/IPv6
+      include_tasks: conf-ipv6-settings-ifnecessary.yml
+
+    - name: Network Configuration and Firewalls/Network Related Kernel Runtime Parameters for Hosts and Routers 
+      include_tasks: Kernel-runtime-param-hosts-routers.yml
+
+    - name: Network Configuration and Firewalls/Network Parameters for Hosts Only
+      include_tasks: network-param-hosts-only.yml
+
+    - name: Network Configuration and Firewalls/nftables
+      include_tasks: verify-nftables-svc-disabled.yml
+
+    - name: Network Configuration and Firewalls/Uncommon Network Protocols
+      include_tasks: uncommon-network-protocols.yml
+
+    - name: File Permissions and Masks/Restrict Dynamic Mounting and Unmounting of Filesystem
+      include_tasks: disable-usb-storage-driver.yml
+
+    - name: File Permissions and Masks/Restrict Programs from Dangerous Execution Patterns
+      include_tasks: disable-core-dump.yml
+
+    - name: File Permissions and Masks/Enable ExecShield
+      include_tasks: enable-execshield.yml
+
+    - name: File Permissions and Masks/Enable Execute Disable (XD) or No Execute (NX) Support on x86 Systems
+      include_tasks: disable-storing-core-dumps.yml
+  
+  when: "'9' in os_release.stdout"

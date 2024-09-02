@@ -1,0 +1,114 @@
+---
+# execution to playbooks by order
+- name: validador SO
+  block: 
+    # discretionary-access-controls
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-chmod.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-chown.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-fchmod.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-fchmodat.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-fchown.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-fchownat.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-fremovexattr.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-fsetxattr.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-lchown.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-lremovexattr.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-lsetxattr.yml
+
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-removexattr.yml
+      
+    - name: record events that modify the system's discretionary access controls
+      include_tasks: discretionary-access-controls/discretionary-access-controls-setxattr.yml
+
+    ### record file deletion events by user
+
+    - name: records events that modify date and time information
+      include_tasks:  record-file-deletion-events-user/record-attempts-alter-time-through-adjtimex.yml
+
+    - name: records events that modify date and time information
+      include_tasks:  record-file-deletion-events-user/record-attempts-alter-time-through-clock_settime.yml
+
+    - name: records events that modify date and time information
+      include_tasks:  record-file-deletion-events-user/record-attempts-alter-time-through-settimeofday.yml
+
+    - name: records events that modify date and time information
+      include_tasks:  record-file-deletion-events-user/record-attempts-alter-time-through-stime.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-attempts-alter-localtime-file.yml
+
+    ### configure auditd rules for comprehensive auditing
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/make-auditd-confi-immutable.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-events-modify-system-mandatory-access-controls.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/ensure-auditd-collects-info-exporting-media.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-events-that-modify-system-net-env.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-attempts-alter-process-session-initiation-info.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-events-privileged-executables-run.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/ensure-auditd-collects-system-admin-actions.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-events-modify-user-group-info-etc-group.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-events-modify-user-group-info-etc-gshadow.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-events-modify-user-group-info-etc-security-opasswd.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-events-modify-user-group-info-etc-passwd.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-events-modify-user-group-info-etc-shadow.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-attempts-perform-maintenance-activities.yml
+
+    - name: records events that modify date and time information
+      include_tasks: record-file-deletion-events-user/record-access-events-audit-log-dir.yml
+
+    ## Configure auditd Data Retention
+
+    - name: System Accounting with audit/Configure auditd Data Retention
+      include_tasks: configure-auditd-data-retention/confi-auditd-data-retention.yml
+
+    - name: System Accounting with audit/Configure auditd Data Retention
+      include_tasks: configure-auditd-data-retention/install-pck-audit-deamon-limit.yml
+
+  when: "'9' in os_release.stdout"

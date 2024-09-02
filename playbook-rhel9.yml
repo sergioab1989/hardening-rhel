@@ -1,0 +1,9 @@
+---
+- name: pruebas de implementacion de hardening en ambiente local
+  hosts: all
+  become: true
+  gather_facts: true  
+  roles:
+    - rhel-9/sistem-settings
+    - rhel-9/services
+    - rhel-9/system-accounting-with-auditd

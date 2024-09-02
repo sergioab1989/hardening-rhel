@@ -1,0 +1,137 @@
+---
+- name: validador SO
+  block:
+    - name: ssh-server 
+      include_tasks: enable-auditing-processes-which-start-prior-to-audit-daemon.yml
+
+    - name: ssh-server 
+      include_tasks: extend-audit-backlog-limit-audit-daemon.yml
+
+    - name: ssh-server 
+      include_tasks: install-audispd-plugins-package.yml
+
+    - name: ssh-server 
+      include_tasks: configure-auditd.yml
+
+    - name: ssh-server 
+      include_tasks: configure-auditd-rules-comprehensive-auditing.yml
+
+    - name: system accounting auditd
+      include_tasks: ensure-auditd-collects-information-exporting-media.yml 
+
+    - name: system accounting auditd
+      include_tasks: ensure-auditd-collects-system-administrator-actions.yml 
+
+    - name: system accounting auditd
+      include_tasks: make-auditd-configuration-immutable.yml 
+
+    - name: system accounting auditd
+      include_tasks: record-access-events-audit-log-directory.yml 
+
+    - name: system accounting auditd
+      include_tasks: record-attempts-alter-process-session-initiation-information.yml 
+
+    - name: system accounting auditd
+      include_tasks: record-attempts-perform-maintenance-activities.yml 
+
+    - name: system accounting auditd
+      include_tasks: record-events-modify-systems-mandatory-access-controls.yml 
+
+    - name: system accounting auditd
+      include_tasks: record-events-modify-systems-network-environment.yml 
+
+    - name: system accounting auditd
+      include_tasks: record-events-when-privileged-executables-run.yml 
+
+    - name: system accounting auditd
+      include_tasks: user-group-information-etc-group.yml 
+
+    - name: system accounting auditd
+      include_tasks: user-group-information-etc-gshadow.yml 
+
+    - name: system accounting auditd
+      include_tasks: user-group-information-etc-passwd.yml 
+
+    - name: system accounting auditd
+      include_tasks: user-group-information-etc-security-opasswd.yml 
+
+    - name: system accounting auditd
+      include_tasks: user-group-information-etc-shadow.yml
+
+    - name: record-attempts-alter-logon-logout-events
+      include_tasks: record-attempts-alter-logon-logout-events/events-faillock.yml
+
+    - name: record-attempts-alter-logon-logout-events
+      include_tasks: record-attempts-alter-logon-logout-events/events-lastlog.yml
+
+    - name: record-attempts-alter-logon-logout-events
+      include_tasks: record-attempts-alter-logon-logout-events/events-tallylog.yml
+
+    - name: record-attempts-alter-logon-logout-events
+      include_tasks: record-events-modify-systems-discretionary/access-controls-chown.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-chmod.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-fchmodat.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-fchmod.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-fchown.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-fremovexattr.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-lchown.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-lremovexattr.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-lsetxattr.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-removexattr.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/access-controls-setxattr.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/acess-controls-fchownat.yml
+
+    - name: record-events-modify-systems-discretionary
+      include_tasks: record-events-modify-systems-discretionary/acess-controls-fsetxattr.yml
+
+    - name: record-file-deletion-events-user 
+      include_tasks: record-file-deletion-events-user/events-by-user-renameat.yml
+
+    - name: record-file-deletion-events-user 
+      include_tasks: record-file-deletion-events-user/events-by-user-rename.yml
+
+    - name: record-file-deletion-events-user 
+      include_tasks: record-file-deletion-events-user/events-by-user-rmdir.yml
+
+    - name: record-file-deletion-events-user 
+      include_tasks: record-file-deletion-events-user/events-by-user-unlinkat.yml
+
+    - name: record-file-deletion-events-user 
+      include_tasks: record-file-deletion-events-user/events-by-user-unlink.yml
+
+    - name: records-events-modify-date-and-time-information
+      include_tasks: records-events-modify-date-and-time-information/the-localtime-file.yml
+
+    - name: records-events-modify-date-and-time-information
+      include_tasks: records-events-modify-date-and-time-information/through-adjtimex.yml
+
+    - name: records-events-modify-date-and-time-information
+      include_tasks: records-events-modify-date-and-time-information/through-clock-settime.yml
+
+    - name: records-events-modify-date-and-time-information
+      include_tasks: records-events-modify-date-and-time-information/through-settimeofday.yml
+
+    - name: records-events-modify-date-and-time-information
+      include_tasks: records-events-modify-date-and-time-information/through-stime.yml

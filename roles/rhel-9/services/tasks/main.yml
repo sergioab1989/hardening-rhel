@@ -1,0 +1,17 @@
+---
+# execution to playbooks by order
+- name: validador SO
+  block:
+    - name: Cron and At Daemons
+      include_tasks: restrict-cron-auth-users-ifnecessary.yml
+
+    - name: SSH Server
+      include_tasks: conf-openssh-server-setssh-client.yml
+
+    - name: SSH Server
+      include_tasks: disable-host-ssh.yml
+
+    - name: SSH Server
+      include_tasks: limits-and-sets.yml
+
+  when: "'9' in os_release.stdout"

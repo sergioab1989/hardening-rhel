@@ -1,0 +1,32 @@
+---
+- name: validador SO
+  block:
+    - name: ssh-server 
+      include_tasks: disable-host-based-authentication.yml
+
+    - name: ssh-server 
+      include_tasks: disable-ssh.yml
+
+    - name: ssh-server 
+      include_tasks: disable-x11-forwarding.yml
+
+    - name: ssh-server 
+      include_tasks: do-not-allow-ssh-environment-options.yml
+
+    - name: ssh-server 
+      include_tasks: ensure-ssh-logingracetime-configured.yml
+
+    - name: ssh-server 
+      include_tasks: ensure-ssh-maxstartups-configured.yml
+
+    - name: ssh-server 
+      include_tasks: set-ssh-client-alive.yml
+
+    - name: ssh-server 
+      include_tasks: set-ssh.yml
+
+    - name: ssh-server 
+      include_tasks: use-only-fips-140-2-validated.yml
+
+    - name: ssh-server 
+      include_tasks: use-only-strong-key-exchange-algorithms.yml

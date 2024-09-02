@@ -1,0 +1,97 @@
+---
+- name: Set Password Maximum Age
+  block:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+      tags:
+      - CCE-83606-4
+      - CJIS-5.6.2.1
+      - DISA-STIG-RHEL-09-411010
+      - NIST-800-171-3.5.6
+      - NIST-800-53-CM-6(a)
+      - NIST-800-53-IA-5(1)(d)
+      - NIST-800-53-IA-5(f)
+      - PCI-DSS-Req-8.2.4
+      - PCI-DSSv4-8.3.9
+      - accounts_maximum_age_login_defs
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+    - name: XCCDF Value var_accounts_maximum_age_login_defs # promote to variable
+      set_fact:
+        var_accounts_maximum_age_login_defs: !!str 90
+      tags:
+        - always
+
+    - name: Set Password Maximum Age
+      lineinfile:
+        create: true
+        dest: /etc/login.defs
+        regexp: ^#?PASS_MAX_DAYS
+        line: PASS_MAX_DAYS {{ var_accounts_maximum_age_login_defs }}
+      when: '"shadow-utils" in ansible_facts.packages'
+      tags:
+      - CCE-83606-4
+      - CJIS-5.6.2.1
+      - DISA-STIG-RHEL-09-411010
+      - NIST-800-171-3.5.6
+      - NIST-800-53-CM-6(a)
+      - NIST-800-53-IA-5(1)(d)
+      - NIST-800-53-IA-5(f)
+      - PCI-DSS-Req-8.2.4
+      - PCI-DSSv4-8.3.9
+      - accounts_maximum_age_login_defs
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+- name: Set Existing Passwords Maximum Age
+  block: 
+    - name: XCCDF Value var_accounts_maximum_age_login_defs # promote to variable
+      set_fact:
+        var_accounts_maximum_age_login_defs: !!str 90
+      tags:
+        - always
+
+    - name: Collect users with not correct maximum time period between password changes
+      ansible.builtin.command:
+        cmd: awk -F':' '(/^[^:]+:[^!*]/ && ($5 > {{ var_accounts_maximum_age_login_defs }} || $5 == "")) {print $1}' /etc/shadow
+      register: user_names
+      tags:
+      - CCE-86031-2
+      - DISA-STIG-RHEL-09-411015
+      - NIST-800-53-CM-6(a)
+      - NIST-800-53-IA-5(1)(d)
+      - NIST-800-53-IA-5(f)
+      - PCI-DSSv4-8.3.9
+      - accounts_password_set_max_life_existing
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Change the maximum time period between password changes
+      ansible.builtin.user:
+        user: '{{ item }}'
+        password_expire_max: '{{ var_accounts_maximum_age_login_defs }}'
+      with_items: '{{ user_names.stdout_lines }}'
+      when: user_names.stdout_lines | length > 0
+      tags:
+      - CCE-86031-2
+      - DISA-STIG-RHEL-09-411015
+      - NIST-800-53-CM-6(a)
+      - NIST-800-53-IA-5(1)(d)
+      - NIST-800-53-IA-5(f)
+      - PCI-DSSv4-8.3.9
+      - accounts_password_set_max_life_existing
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy

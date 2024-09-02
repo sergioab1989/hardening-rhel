@@ -1,0 +1,252 @@
+---
+- name: Verify Permissions on cron.d
+  block:
+    - name: Find /etc/cron.d/ file(s)
+      command: 'find -H /etc/cron.d/ -maxdepth 1 -perm /u+s,g+xwrs,o+xwrt  -type d '
+      register: files_found
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82277-5
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_d
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+    - name: Set permissions for /etc/cron.d/ file(s)
+      file:
+        path: '{{ item }}'
+        mode: u-s,g-xwrs,o-xwrt
+        state: directory
+      with_items:
+      - '{{ files_found.stdout_lines }}'
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82277-5
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_d
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+##
+- name: Verify Permissions on cron.daily
+  block:
+    - name: Find /etc/cron.daily/ file(s)
+      command: 'find -H /etc/cron.daily/ -maxdepth 1 -perm /u+s,g+xwrs,o+xwrt  -type d '
+      register: files_found
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82240-3
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_daily
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+    - name: Set permissions for /etc/cron.daily/ file(s)
+      file:
+        path: '{{ item }}'
+        mode: u-s,g-xwrs,o-xwrt
+        state: directory
+      with_items:
+      - '{{ files_found.stdout_lines }}'
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82240-3
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_daily
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+
+##
+- name: Verify Permissions on cron.hourly
+  block:
+    - name: Find /etc/cron.hourly/ file(s)
+      command: 'find -H /etc/cron.hourly/ -maxdepth 1 -perm /u+s,g+xwrs,o+xwrt  -type
+        d '
+      register: files_found
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82230-4
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_hourly
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+    - name: Set permissions for /etc/cron.hourly/ file(s)
+      file:
+        path: '{{ item }}'
+        mode: u-s,g-xwrs,o-xwrt
+        state: directory
+      with_items:
+      - '{{ files_found.stdout_lines }}'
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82230-4
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_hourly
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+##
+- name: Verify Permissions on cron.monthly
+  block:
+    - name: Find /etc/cron.monthly/ file(s)
+      command: 'find -H /etc/cron.monthly/ -maxdepth 1 -perm /u+s,g+xwrs,o+xwrt  -type
+        d '
+      register: files_found
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82263-5
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_monthly
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+    - name: Set permissions for /etc/cron.monthly/ file(s)
+      file:
+        path: '{{ item }}'
+        mode: u-s,g-xwrs,o-xwrt
+        state: directory
+      with_items:
+      - '{{ files_found.stdout_lines }}'
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82263-5
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_monthly
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+##
+- name: Verify Permissions on cron.weekly
+  block:
+    - name: Find /etc/cron.weekly/ file(s)
+      command: 'find -H /etc/cron.weekly/ -maxdepth 1 -perm /u+s,g+xwrs,o+xwrt  -type
+        d '
+      register: files_found
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82253-6
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_weekly
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+    - name: Set permissions for /etc/cron.weekly/ file(s)
+      file:
+        path: '{{ item }}'
+        mode: u-s,g-xwrs,o-xwrt
+        state: directory
+      with_items:
+      - '{{ files_found.stdout_lines }}'
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82253-6
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_cron_weekly
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+##
+- name: Verify Permissions on crontab
+  block:
+    - name: Test for existence /etc/crontab
+      stat:
+        path: /etc/crontab
+      register: file_exists
+      when: ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82206-4
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_crontab
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+    - name: Ensure permission u-xs,g-xwrs,o-xwrt on /etc/crontab
+      file:
+        path: /etc/crontab
+        mode: u-xs,g-xwrs,o-xwrt
+      when:
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      - file_exists.stat is defined and file_exists.stat.exists
+      tags:
+      - CCE-82206-4
+      - NIST-800-53-AC-6(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSSv4-2.2.6
+      - configure_strategy
+      - file_permissions_crontab
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed

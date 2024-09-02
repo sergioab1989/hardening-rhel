@@ -1,0 +1,18 @@
+---
+# execution to playbooks by order
+- name: extraer informacion de la version
+  ansible.builtin.command: "cat /etc/redhat-release"
+  register: os_release
+
+- name: validador SO
+  block:
+    - name: services 
+      include_tasks: network-time-protocol.yml
+
+    - name: services 
+      include_tasks: restrict-cron-authorized-users-if-necessary.yml
+
+    - name: services 
+      include_tasks: verify-permissions-on-cron.yml
+
+  when: "'8' in os_release.stdout"

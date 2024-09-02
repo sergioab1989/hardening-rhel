@@ -1,0 +1,302 @@
+---
+- name: Configure auditd to use audispd's syslog plugin
+  block:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+      tags:
+      - CCE-80677-8
+      - CJIS-5.4.1.1
+      - NIST-800-171-3.3.1
+      - NIST-800-53-AU-4(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.5.3
+      - PCI-DSSv4-10.3.3
+      - auditd_audispd_syslog_plugin_activated
+      - configure_strategy
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+    - name: Enable syslog plugin
+      lineinfile:
+        dest: /etc/audit/plugins.d/syslog.conf
+        regexp: ^active
+        line: active = yes
+        create: true
+      when:
+      - '"audit" in ansible_facts.packages'
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-80677-8
+      - CJIS-5.4.1.1
+      - NIST-800-171-3.3.1
+      - NIST-800-53-AU-4(1)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.5.3
+      - PCI-DSSv4-10.3.3
+      - auditd_audispd_syslog_plugin_activated
+      - configure_strategy
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+
+  ##
+- name: Configure auditd admin_space_left Action on Low Disk Space
+  block:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+      tags:
+      - CCE-80679-4
+      - CJIS-5.4.1.1
+      - NIST-800-171-3.3.1
+      - NIST-800-53-AU-5(1)
+      - NIST-800-53-AU-5(2)
+      - NIST-800-53-AU-5(4)
+      - NIST-800-53-AU-5(b)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.7
+      - PCI-DSSv4-10.5.1
+      - auditd_data_retention_admin_space_left_action
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+    - name: XCCDF Value var_auditd_admin_space_left_action # promote to variable
+      set_fact:
+        var_auditd_admin_space_left_action: !!str single
+      tags:
+        - always
+
+    - name: Configure auditd admin_space_left Action on Low Disk Space
+      lineinfile:
+        dest: /etc/audit/auditd.conf
+        line: admin_space_left_action = {{ var_auditd_admin_space_left_action .split('|')[0]
+          }}
+        regexp: ^\s*admin_space_left_action\s*=\s*.*$
+        state: present
+        create: true
+      when:
+      - '"audit" in ansible_facts.packages'
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-80679-4
+      - CJIS-5.4.1.1
+      - NIST-800-171-3.3.1
+      - NIST-800-53-AU-5(1)
+      - NIST-800-53-AU-5(2)
+      - NIST-800-53-AU-5(4)
+      - NIST-800-53-AU-5(b)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.7
+      - PCI-DSSv4-10.5.1
+      - auditd_data_retention_admin_space_left_action
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+##
+- name: Configure auditd space_left on Low Disk Space
+  block:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+      tags:
+      - CCE-83619-7
+      - NIST-800-53-AU-5(1)
+      - NIST-800-53-AU-5(2)
+      - NIST-800-53-AU-5(4)
+      - NIST-800-53-AU-5(b)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.7
+      - PCI-DSSv4-10.5.1
+      - auditd_data_retention_space_left
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+    - name: XCCDF Value var_auditd_space_left # promote to variable
+      set_fact:
+        var_auditd_space_left: !!str 100
+      tags:
+        - always
+
+    - name: Configure auditd space_left on Low Disk Space
+      lineinfile:
+        dest: /etc/audit/auditd.conf
+        line: space_left = {{ var_auditd_space_left }}
+        regexp: ^\s*space_left\s*=\s*.*$
+        state: present
+        create: true
+      when:
+      - '"audit" in ansible_facts.packages'
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-83619-7
+      - NIST-800-53-AU-5(1)
+      - NIST-800-53-AU-5(2)
+      - NIST-800-53-AU-5(4)
+      - NIST-800-53-AU-5(b)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.7
+      - PCI-DSSv4-10.5.1
+      - auditd_data_retention_space_left
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+##
+- name: Configure auditd space_left Action on Low Disk Space
+  block:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+      tags:
+      - CCE-80684-4
+      - CJIS-5.4.1.1
+      - DISA-STIG-RHEL-08-030731
+      - NIST-800-171-3.3.1
+      - NIST-800-53-AU-5(1)
+      - NIST-800-53-AU-5(2)
+      - NIST-800-53-AU-5(4)
+      - NIST-800-53-AU-5(b)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.7
+      - PCI-DSSv4-10.5.1
+      - auditd_data_retention_space_left_action
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+    - name: XCCDF Value var_auditd_space_left_action # promote to variable
+      set_fact:
+        var_auditd_space_left_action: !!str email
+      tags:
+        - always
+
+    - name: Configure auditd space_left Action on Low Disk Space
+      lineinfile:
+        dest: /etc/audit/auditd.conf
+        line: space_left_action = {{ var_auditd_space_left_action.split('|')[0] }}
+        regexp: ^\s*space_left_action\s*=\s*.*$
+        state: present
+        create: true
+      when:
+      - '"audit" in ansible_facts.packages'
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-80684-4
+      - CJIS-5.4.1.1
+      - DISA-STIG-RHEL-08-030731
+      - NIST-800-171-3.3.1
+      - NIST-800-53-AU-5(1)
+      - NIST-800-53-AU-5(2)
+      - NIST-800-53-AU-5(4)
+      - NIST-800-53-AU-5(b)
+      - NIST-800-53-CM-6(a)
+      - PCI-DSS-Req-10.7
+      - PCI-DSSv4-10.5.1
+      - auditd_data_retention_space_left_action
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+##
+- name: Set type of computer node name logging in audit logs
+  block:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+      tags:
+      - CCE-82897-0
+      - DISA-STIG-RHEL-08-030062
+      - NIST-800-53-AU-3
+      - NIST-800-53-CM-6
+      - PCI-DSSv4-10.2.2
+      - auditd_name_format
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+    - name: XCCDF Value var_auditd_name_format # promote to variable
+      set_fact:
+        var_auditd_name_format: !!str fqd
+      tags:
+        - always
+
+    - name: Set type of computer node name logging in audit logs - Define Value to Be
+        Used in the Remediation
+      ansible.builtin.set_fact: auditd_name_format_split="{{ var_auditd_name_format.split('|')[0]
+        }}"
+      when:
+      - '"audit" in ansible_facts.packages'
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82897-0
+      - DISA-STIG-RHEL-08-030062
+      - NIST-800-53-AU-3
+      - NIST-800-53-CM-6
+      - PCI-DSSv4-10.2.2
+      - auditd_name_format
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
+
+    - name: Set type of computer node name logging in audit logs
+      block:
+
+      - name: Check for duplicate values
+        lineinfile:
+          path: /etc/audit/auditd.conf
+          create: true
+          regexp: (?i)^\s*name_format\s*=\s*
+          state: absent
+        check_mode: true
+        changed_when: false
+        register: dupes
+
+      - name: Deduplicate values from /etc/audit/auditd.conf
+        lineinfile:
+          path: /etc/audit/auditd.conf
+          create: true
+          regexp: (?i)^\s*name_format\s*=\s*
+          state: absent
+        when: dupes.found is defined and dupes.found > 1
+
+      - name: Insert correct line to /etc/audit/auditd.conf
+        lineinfile:
+          path: /etc/audit/auditd.conf
+          create: true
+          regexp: (?i)^\s*name_format\s*=\s*
+          line: name_format = {{ auditd_name_format_split }}
+          state: present
+      when:
+      - '"audit" in ansible_facts.packages'
+      - ansible_virtualization_type not in ["docker", "lxc", "openvz", "podman", "container"]
+      tags:
+      - CCE-82897-0
+      - DISA-STIG-RHEL-08-030062
+      - NIST-800-53-AU-3
+      - NIST-800-53-CM-6
+      - PCI-DSSv4-10.2.2
+      - auditd_name_format
+      - low_complexity
+      - low_disruption
+      - medium_severity
+      - no_reboot_needed
+      - restrict_strategy
