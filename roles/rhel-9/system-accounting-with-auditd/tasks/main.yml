@@ -110,5 +110,3 @@
 
     - name: System Accounting with audit/Configure auditd Data Retention
       include_tasks: configure-auditd-data-retention/install-pck-audit-deamon-limit.yml
-
-  when: "'9' in os_release.stdout"

@@ -70,5 +70,3 @@
 
     - name: File Permissions and Masks/Enable Execute Disable (XD) or No Execute (NX) Support on x86 Systems
       include_tasks: disable-storing-core-dumps.yml
-  
-  when: "'9' in os_release.stdout"

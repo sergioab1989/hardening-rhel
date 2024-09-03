@@ -13,5 +13,3 @@
 
     - name: SSH Server
       include_tasks: limits-and-sets.yml
-
-  when: "'9' in os_release.stdout"
