@@ -13,9 +13,6 @@
     - name: system accounting auditd 
       include_tasks: configure-auditd.yml
 
-    - name: system accounting auditd 
-      include_tasks: configure-auditd-rules-comprehensive-auditing.yml
-
     - name: system accounting auditd
       include_tasks: ensure-auditd-collects-information-exporting-media.yml 
 
