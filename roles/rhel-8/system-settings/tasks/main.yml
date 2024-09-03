@@ -3,74 +3,13 @@
 
 - name: validador SO
   block:
-    - name: installing and maintaining software
-      include_tasks: configure-ipv6-settings-if-necessary.yml
 
     - name: installing and maintaining software
-      include_tasks: conf-sudo.yml
+      include_tasks: set-account-expir-following-inact.yml
 
     - name: installing and maintaining software
-      include_tasks: disable-core-dumps.yml
+      include_tasks: set-pass-expir-parameters.yml
 
     - name: installing and maintaining software
-      include_tasks: disable-storing-core-dumps.yml
+      include_tasks: set-pass-qual-requi-pam-pwquality.yml
 
-    - name: installing and maintaining software
-      include_tasks: enable-execshield.yml
-
-    - name: installing and maintaining software
-      include_tasks: ensure-pam-displays-last-logon-access-notifi.yml
-
-    - name: installing and maintaining software
-      include_tasks: limit-pass-reuse-pass-auth.yml
-
-    - name: installing and maintaining software
-      include_tasks: limit-pass-reuse-sys-auth.yml
-
-    - name: installing and maintaining software
-      include_tasks: limit-pass-reuse.yml
-
-    - name: installing and maintaining software
-      include_tasks: lock-acc-after-failed-pass-attempts.yml
-
-    - name: installing and maintaining software
-      include_tasks: network-parameters-hosts-only.yml
-
-    - name: installing and maintaining software
-      include_tasks: network-related-kernel-runtime-parameters-hosts-routers.yml
-
-    - name: installing and maintaining software
-      include_tasks: prevent-login-to-acc-empty-pass.yml
-
-    - name: installing and maintaining software
-      include_tasks: prevent-non-privileged-users-modifying-network-interfaces-using-nmcli.yml
-
-    - name: installing and maintaining software
-      include_tasks: restrict-root-logins.yml
-
-#    - name: installing and maintaining software
-#      include_tasks: set-account-expir-following-inact.yml
-
-    - name: installing and maintaining software
-      include_tasks: set-interactive-session-timeout.yml
-
-    - name: installing and maintaining software
-      include_tasks: set-lockout-time-fail-pass-attempts.yml
-
-#    - name: installing and maintaining software
-#      include_tasks: set-pass-expir-parameters.yml
-
-#    - name: installing and maintaining software
-#      include_tasks: set-pass-qual-requi-pam-pwquality.yml
-
-    - name: installing and maintaining software
-      include_tasks: strengthen-default-ruleset.yml
-
-    - name: installing and maintaining software
-      include_tasks: uncommon-network-protocols.yml
-
-    - name: installing and maintaining software
-      include_tasks: verify-integrity-aide.yml
-
-    - name: installing and maintaining software
-      include_tasks: verify-nftables-service-disabled.yml
