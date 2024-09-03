@@ -1,10 +1,10 @@
 ---
 - name: pruebas de implementacion de hardening en ambiente local
-  hosts: rhel8
+  hosts: all
   become: true
-  gather_facts: true  
+  gather_facts: true
   roles:
-    - rhel-8/sistem-settings
-#    - rhel-8/ssh-server
-#    - rhel-8/system-accounting-auditd
-#    - rhel-8/servicess
+    - rhel-8/system-settings
+    - rhel-8/ssh-server
+    - rhel-8/system-accounting-auditd
+    - rhel-8/servicess

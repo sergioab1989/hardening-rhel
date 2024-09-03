@@ -1,19 +1,19 @@
 ---
 - name: validador SO
   block:
-    - name: ssh-server 
+    - name: system accounting auditd 
       include_tasks: enable-auditing-processes-which-start-prior-to-audit-daemon.yml
 
-    - name: ssh-server 
+    - name: system accounting auditd 
       include_tasks: extend-audit-backlog-limit-audit-daemon.yml
 
-    - name: ssh-server 
+    - name: system accounting auditd
       include_tasks: install-audispd-plugins-package.yml
 
-    - name: ssh-server 
+    - name: system accounting auditd 
       include_tasks: configure-auditd.yml
 
-    - name: ssh-server 
+    - name: system accounting auditd 
       include_tasks: configure-auditd-rules-comprehensive-auditing.yml
 
     - name: system accounting auditd
