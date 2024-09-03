@@ -1,5 +1,5 @@
 ---
-execution to playbooks by order
+# execution to playbooks by order
 
 - name: validador SO
   block:
@@ -70,7 +70,7 @@ execution to playbooks by order
 #       include_tasks: uncommon-network-protocols.yml
 
     - name: installing and maintaining software
-       include_tasks: verify-integrity-aide.yml
+      include_tasks: verify-integrity-aide.yml
 
     - name: installing and maintaining software
       include_tasks: verify-nftables-service-disabled.yml
