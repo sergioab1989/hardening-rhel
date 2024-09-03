@@ -7,8 +7,8 @@
     - name: installing and maintaining software
       include_tasks: set-account-expir-following-inact.yml
 
-    # - name: installing and maintaining software
-    #   include_tasks: set-pass-expir-parameters.yml
+    - name: installing and maintaining software
+      include_tasks: set-pass-expir-parameters.yml
 
     # - name: installing and maintaining software
     #   include_tasks: set-pass-qual-requi-pam-pwquality.yml
