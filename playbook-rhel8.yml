@@ -7,4 +7,4 @@
     - rhel-8/system-settings
     - rhel-8/ssh-server
     - rhel-8/system-accounting-auditd
-    - rhel-8/servicess
+    - rhel-8/services
