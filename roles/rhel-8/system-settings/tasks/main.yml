@@ -4,8 +4,8 @@
 - name: validador SO
   block:
 
-    - name: installing and maintaining software
-      include_tasks: set-account-expir-following-inact.yml
+    # - name: installing and maintaining software
+    #   include_tasks: set-account-expir-following-inact.yml
 
     - name: installing and maintaining software
       include_tasks: set-pass-expir-parameters.yml
