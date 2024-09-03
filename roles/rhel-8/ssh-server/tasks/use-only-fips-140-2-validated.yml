@@ -3,7 +3,7 @@
   block:
     - name: XCCDF Value sshd_approved_ciphers # promote to variable
       set_fact:
-        sshd_approved_ciphers: !!str aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se
+        sshd_approved_ciphers: !!str aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
       tags:
         - always
 
