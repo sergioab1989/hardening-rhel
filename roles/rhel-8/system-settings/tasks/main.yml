@@ -1,8 +1,8 @@
 ---
-# execution to playbooks by order
+execution to playbooks by order
 
-# - name: validador SO
-#   block:
+- name: validador SO
+  block:
 #     - name: installing and maintaining software
 #       include_tasks: configure-ipv6-settings-if-necessary.yml
 
